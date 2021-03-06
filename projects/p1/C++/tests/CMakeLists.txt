@@ -1,5 +1,5 @@
 function(p1_failure name)
-   add_test(Fail-${name}
+   add_test(NAME Fail-${name}
       COMMAND ${CMAKE_CURRENT_BINARY_DIR}/../p1 ${CMAKE_CURRENT_SOURCE_DIR}/${name}.p1 ${CMAKE_CURRENT_BINARY_DIR}/${name}.bc
       )
    set_tests_properties(Fail-${name} PROPERTIES WILL_FAIL TRUE)
@@ -49,7 +49,7 @@ function(p1_simple_test name class)
       )
    add_executable(${name} ${CMAKE_CURRENT_BINARY_DIR}/${name}.bc.o ${name}.c)
    add_test(NAME ${class}-${name} COMMAND ${name} )
-   add_test(InstCount-${name} COMMAND ${CMAKE_CURRENT_BINARY_DIR}/llvm-inst-count ${CMAKE_CURRENT_BINARY_DIR}/${name}.bc)
+   add_test(NAME InstCount-${name} COMMAND ${CMAKE_CURRENT_BINARY_DIR}/llvm-inst-count ${CMAKE_CURRENT_BINARY_DIR}/${name}.bc)
 endfunction(p1_simple_test)
 
 p1_simple_test(test_0 466)
