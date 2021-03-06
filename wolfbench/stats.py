@@ -2,14 +2,20 @@
 
 import sys
 import re
+import os
 
 Stats = {}
-
-p_name = re.compile('.*\.(\w+)\.bc\.stats',re.IGNORECASE)
-
+p_name = re.compile('.*\.(\w+)\.tune.bc\.stats',re.IGNORECASE)
 Ids = {}
 
-for fName in sys.argv[1:]:
+stats = []
+cwd = os.getcwd()
+for root, dirs, files in os.walk(cwd):
+    for f in files:
+        if f.endswith('.stats'):
+            stats.append(os.path.join(root,f))
+
+for fName in stats:
     try:
         f = open(fName,"r")
     except:
@@ -17,12 +23,17 @@ for fName in sys.argv[1:]:
         sys.exit(1)
 
     m = p_name.match(fName)
-    g = m.groups()
-
-    opt = g[0]
+    if m == None:
+        opt = "-"
+    else:
+        g = m.groups()
+        opt = g[0]
+        if opt == 'tune' or opt == None:
+            opt = "-"
+    
     if not Stats.has_key(opt):
         Stats[opt] = {}
-
+        
     stats = {}
 
     for line in iter(f.readline, ''):

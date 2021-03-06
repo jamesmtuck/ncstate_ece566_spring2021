@@ -147,7 +147,7 @@ static void summarize(Module *M) {
 
 static void print_csv_file(std::string outputfile)
 {
-    std::ofstream stats(outputfile + ".stats");
+    std::ofstream stats(outputfile);
     auto a = GetStatistics();
     for (auto p : a) {
         stats << p.first.str() << "," << p.second << std::endl;
