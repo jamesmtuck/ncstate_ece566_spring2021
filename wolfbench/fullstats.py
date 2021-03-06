@@ -2,44 +2,55 @@
 
 import sys
 import re
+import os
 
 Stats = {}
 
-p_name = re.compile('.*/(\w*)\.(\w+)\..*\.bc.*\.stats',re.IGNORECASE)
+p_name = re.compile('(\w*)\.?(\w+)?\.tune\.bc\.stats',re.IGNORECASE)
 
 Ids = {}
 
-argv = sys.argv
 Normalize = False
-if argv[1] == '-N':
-    Normalize = True
-    argv = argv[1:]
+if len(sys.argv) > 1:
+    if sys.argv[1] == '-N':
+        Normalize = True
+        field = sys.argv[2]
+    else:
+        field = sys.argv[1]
+else:
+    print ("No field specifield. Assuming Instructions.")
+    field = "Instructions"
+    
+stats = []
+cwd = os.getcwd()
+for root, dirs, files in os.walk(cwd):
+    for f in files:
+        if f.endswith('.stats'):
+            stats.append(os.path.join(root,f))
 
-field = argv[1]
-
-for fName in argv[2:]:
+for fName in stats:
     try:
         f = open(fName,"r")
     except:
         print "Error: could not find file %s" % fName
         sys.exit(1)
 
-    m = p_name.match(fName)
+    basename = os.path.basename(fName)
+        
+    m = p_name.match(basename)
     if m==None:
+        print (fName)
         continue
-
-    g = m.groups()
-    if g==None:
-        continue
-
-    if len(g) < 2:
-        continue
-
-    name = g[0]
-    opt = g[1]
-    if opt==None:
-        opt = "None"
-
+    else:
+        g = m.groups()
+        if len(g) < 2:
+            continue
+        name = g[0]
+        opt = g[1]
+        print (name,opt)
+        if opt==None:
+            opt = "-"
+        
     Ids[name] = 1
     
     if not Stats.has_key(opt):
