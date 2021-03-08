@@ -6,7 +6,7 @@
 
 ifdef CLANG
 %.bc: %.c
-	$(CLANG) -O1 -Xclang -disable-llvm-passes -w -std=c89 -emit-llvm -c -o $@ $< $(INCLUDE) $(CFLAGS) $(DEFS)
+	$(CLANG) -O1 -Xclang -disable-O0-optnone -w -std=c89 -emit-llvm -c -o $@ $< $(INCLUDE) $(CFLAGS) $(DEFS)
 %.bc: %.cpp
 	$(CLANG)  -w -std=c89 -emit-llvm -c -o $@ $< $(INCLUDE) $(CFLAGS) $(DEFS)
 endif
@@ -14,14 +14,14 @@ endif
 
 %.ll: %.c
 ifdef CLANG
-	$(CLANG) -O1 -Xclang -disable-llvm-passes  -w -std=c89 -emit-llvm -S -o $@ $< $(INCLUDE) $(CFLAGS) $(DEFS)
+	$(CLANG) -O1 -Xclang -disable-O0-optnone  -w -std=c89 -emit-llvm -S -o $@ $< $(INCLUDE) $(CFLAGS) $(DEFS)
 else
 	$(GCC) -fplugin=$(DRAGONEGG) -fplugin-arg-dragonegg-emit-ir -S -o $@ $< $(INCLUDE) $(CFLAGS) $(DEFS)
 endif
 
 %.ll: %.cpp
 ifdef CLANG
-	@$(CLANG) -O1 -Xclang -disable-llvm-passes -std=c89 -emit-llvm -S -o $@ $< $(INCLUDE) $(CFLAGS) $(DEFS)
+	@$(CLANG) -O1 -Xclang -disable-O0-optnone -std=c89 -emit-llvm -S -o $@ $< $(INCLUDE) $(CFLAGS) $(DEFS)
 else
 	@$(GCC) -fplugin=$(DRAGONEGG) -fplugin-arg-dragonegg-emit-ir -S -o $@ $< $(INCLUDE) $(CFLAGS) $(DEFS)
 endif
