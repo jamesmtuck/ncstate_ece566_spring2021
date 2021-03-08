@@ -9,7 +9,7 @@ using namespace llvm;
 
 LLVMStatisticsRef LLVMStatisticsCreate(const char* name, const char * descr)
 {
-    Statistic *s = new llvm::Statistic("", "CSEDead", "CSE found dead instructions");
+    Statistic *s = new llvm::Statistic("", name, descr);
     return (LLVMStatisticsRef) s;
 }
 
