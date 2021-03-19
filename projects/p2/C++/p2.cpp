@@ -22,6 +22,7 @@
 #include "llvm/LinkAllPasses.h"
 #include "llvm/Support/ManagedStatic.h"
 #include "llvm/Support/SourceMgr.h"
+#include "llvm/Analysis/InstructionSimplify.h"
 
 using namespace llvm;
 
@@ -99,7 +100,7 @@ int main(int argc, char **argv) {
 
     // Collect statistics on Module
     summarize(M.get());
-    print_csv_file(OutputFilename+".stats");
+    print_csv_file(OutputFilename);
 
     if (Verbose)
         PrintStatistics(errs());
@@ -129,6 +130,7 @@ static void summarize(Module *M) {
         if (i->begin() != i->end()) {
             nFunctions++;
         }
+
         for (auto j = i->begin(); j != i->end(); j++) {
             for (auto k = j->begin(); k != j->end(); k++) {
                 Instruction &I = *k;

@@ -39,7 +39,7 @@ for fName in stats:
         
     m = p_name.match(basename)
     if m==None:
-        print (fName)
+        #print (fName)
         continue
     else:
         g = m.groups()
@@ -47,7 +47,7 @@ for fName in stats:
             continue
         name = g[0]
         opt = g[1]
-        print (name,opt)
+        #print (name,opt)
         if opt==None:
             opt = "-"
         
