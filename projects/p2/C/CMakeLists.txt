@@ -21,10 +21,9 @@ include_directories(.)
 add_executable(p2 p2.cpp cse.c dominance.cpp valmap.cpp loop.cpp transform.cpp worklist.cpp cfg.cpp stats.cpp)
 target_link_libraries(p2 ${llvm_libs})
 
-
-#enable_testing()
-#add_test(NAME Usage COMMAND p1)
-#set_tests_properties(Usage
-#   PROPERTIES PASS_REGULAR_EXPRESSION "Usage:"
-#   )
-#add_subdirectory(tests)
+enable_testing()
+add_test(NAME Usage COMMAND p2 -h)
+set_tests_properties(Usage
+        PROPERTIES PASS_REGULAR_EXPRESSION "USAGE:"
+        )
+add_subdirectory(tests)
