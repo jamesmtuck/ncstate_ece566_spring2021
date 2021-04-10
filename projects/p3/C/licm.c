@@ -20,18 +20,16 @@
 
 LLVMStatisticsRef LICMBasic;
 LLVMStatisticsRef LICMLoadHoist;
-LLVMStatisticsRef LICMStoreSink;
-LLVMStatisticsRef LICMLoadSink;
+LLVMStatisticsRef LICMNoPreheader;
 LLVMStatisticsRef LICMBadStore;
 LLVMStatisticsRef LICMBadCall;
+LLVMStatisticsRef NumLoops;
 
 void LoopInvariantCodeMotion(LLVMModuleRef Module)
 {
     LICMBasic = LLVMStatisticsCreate("LICMBasic", "basic loop invariant instructions");
     LICMLoadHoist = LLVMStatisticsCreate("LICMLoadHoist", "loop invariant load instructions");
-    LICMStoreSink = LLVMStatisticsCreate("LICMStoreSink", "loop invariant stores instructions");
-    LICMLoadSink = LLVMStatisticsCreate("LICMLoadSink", "loop invariant loads that can sink");
-    LICMLoadSink = LLVMStatisticsCreate("LICMNoPreheader", "absence of preheader prevents optimization");
+    LICMNoPreheader = LLVMStatisticsCreate("LICMNoPreheader", "absence of preheader prevents optimization");
     LICMBadStore = LLVMStatisticsCreate("LICMBadStore", "aliasing store prevents optimization");
     LICMBadCall = LLVMStatisticsCreate("LICMBadCall", "call instructions prevent optimization");
 

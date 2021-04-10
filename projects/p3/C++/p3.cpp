@@ -165,11 +165,10 @@ static void print_csv_file(std::string outputfile)
 
 static llvm::Statistic LICMBasic = {"", "LICMBasic", "basic loop invariant instructions"};
 static llvm::Statistic LICMLoadHoist = {"", "LICMLoadHoist", "loop invariant load instructions"};
-static llvm::Statistic LICMStoreSink = {"", "LICMStoreSink", "loop invariant store instructions"};
-static llvm::Statistic LICMLoadSink = {"", "LICMLoadSink", "loop invariant loads that can sink"};
 static llvm::Statistic LICMNoPreheader = {"", "LICMNoPreheader", "absence of preheader prevents optimization"};
 static llvm::Statistic LICMBadStore = {"", "LICMBadStore", "aliasing store prevents optimization"};
 static llvm::Statistic LICMBadCall = {"", "LICMBadCall", "call instruction prevents optimization"};
+static llvm::Statistic NumLoops = {"", "NumLoops", "number of loops analyzed"};
 
 static void LoopInvariantCodeMotion(Module *) {
     // Implement this function
