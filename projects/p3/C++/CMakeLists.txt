@@ -26,4 +26,4 @@ add_test(NAME Usage COMMAND p3 -h)
 set_tests_properties(Usage
         PROPERTIES PASS_REGULAR_EXPRESSION "USAGE:"
         )
-add_subdirectory(tests)
+#add_subdirectory(tests)
